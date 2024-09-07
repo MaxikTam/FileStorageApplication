@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicApp", "LogicApp\LogicApp.csproj", "{4E328EBC-C2B3-4CC7-B6D8-060C125D285F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{72E10678-7554-41C7-AB47-BC5522756DA1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E328EBC-C2B3-4CC7-B6D8-060C125D285F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E328EBC-C2B3-4CC7-B6D8-060C125D285F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E328EBC-C2B3-4CC7-B6D8-060C125D285F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E328EBC-C2B3-4CC7-B6D8-060C125D285F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72E10678-7554-41C7-AB47-BC5522756DA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72E10678-7554-41C7-AB47-BC5522756DA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72E10678-7554-41C7-AB47-BC5522756DA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72E10678-7554-41C7-AB47-BC5522756DA1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
