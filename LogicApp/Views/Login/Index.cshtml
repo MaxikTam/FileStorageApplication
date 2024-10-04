@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+<div class="text-center">
+    <h4>Введите имя пользователя и пороль</h4>
+    @using(Html.BeginForm("", "Login", FormMethod.Post))
+    {
+        <p>
+            <label>Имя</label><br />
+            <input type="text" name="userName" />
+        </p>
+        <p>
+            <label>Пороль</label><br />
+            <input type="password" name="password" />
+        </p>
+        <p>
+            <input type="submit" value="Войти" />
+        </p>
+    }
+    @Html.RouteLink("Регистрация",new { controller = "Register", action = ""})
+</div>

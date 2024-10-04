@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html lang="ru-ru">
+<head>
+    <title>Регистрация</title>
+</head>
+<body>
+<div class="text-center">
+    <h4>Введите данные пользователя</h4>
+    @using (Html.BeginForm("", "Register", FormMethod.Post))
+    {
+        <p> 
+            <label>Имя</label><br/>
+            <input type="text" name="userName"/>
+        </p>
+        <p>
+            <label>Пароль</label><br/>
+            <input type="password" name="password"/>
+        </p>
+        <p>
+            <label>Павторите пороль</label><br/>
+            <input type="password"/>
+        </p>
+        <p>
+            <input type="submit" value="Зарегистрироваться"/>
+        </p>
+    }
+</div>
+</body>
+</html>
