@@ -8,14 +8,14 @@ namespace LogicApp.Controllers;
 public class RegisterController : Controller
 {
     private readonly UserService _userService;
-
-    public RegisterController(UserService userService)
+    private readonly IWebHostEnvironment _appEnvironment;
+    public RegisterController(UserService userService, IWebHostEnvironment appEnvironment)
     {
         _userService = userService;
+        _appEnvironment = appEnvironment;
     }
     
     [HttpGet]
-    [Route("")]
     public IActionResult Index()
     {
         return View();
@@ -24,11 +24,16 @@ public class RegisterController : Controller
     [HttpPost]
     public async Task<IActionResult> Register(RegisertUserRequest request)
     {
-        await _userService.Register(
-            request.UserName,
-            request.Password);
         
-        return new OkResult();
+        if (await _userService.Register(
+                request.UserName,
+                request.Password))
+        {
+            Directory.CreateDirectory(_appEnvironment.WebRootPath + "/Files/" + request.UserName);
+            return Redirect("~/Home");
+        }
+        
+        return new OkObjectResult("Такое имя пользователя уже существует.");
     }
 }
 

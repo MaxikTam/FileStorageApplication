@@ -1,0 +1,11 @@
+﻿@{
+ViewBag.Title = "title";
+Layout = "_Layout";
+}
+<div class="text-center">
+    <h3>Выберите файл для загрузки</h3>
+    <form asp-action="Upload" asp-controller="Home" method="post" enctype="multipart/form-data">
+        <input type="file" name="uploadedFile" /><br>
+        <input type="submit" value="Загрузить" />
+    </form>
+</div>

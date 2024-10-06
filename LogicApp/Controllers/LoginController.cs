@@ -1,5 +1,8 @@
-﻿using LogicApp.Contravts.Users;
+﻿using System.Security.Claims;
+using LogicApp.Contravts.Users;
 using LogicApp.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LogicApp.Controllers;
@@ -8,7 +11,6 @@ namespace LogicApp.Controllers;
 public class LoginController : Controller
 {
     private readonly UserService _userService;
-
     public LoginController(UserService userService)
     {
         _userService = userService;
@@ -24,17 +26,20 @@ public class LoginController : Controller
     [HttpPost]
     public async Task<IActionResult> Auth(LoginUserRequest request)
     {
-        string token = "";
         try
         {
-            token = await _userService.Login(request.Name, request.Password);
+            var user = await _userService.Login(request.UserName, request.Password);
+            var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.Name) };
+            var claimsIdentity = new ClaimsIdentity(claims, "Cookies");
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
         }
         catch (Exception ex)
         {
-            return new OkResult();
+            return new BadRequestObjectResult("Ошибка обработки запроса");
         }
-        
-        return new OkObjectResult(token);
+
+        return Redirect("~/Home");
     }
     
 }

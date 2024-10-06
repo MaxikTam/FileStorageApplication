@@ -1,35 +1,29 @@
-﻿@{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+﻿@model LogicApp.Contravts.Users.RegisertUserRequest
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+ViewBag.Title = "Регистрация";
+Layout = "_Layout";
 }
-
-<!DOCTYPE html>
-
-<html lang="ru-ru">
-<head>
-    <title>Регистрация</title>
-</head>
-<body>
 <div class="text-center">
-    <h4>Введите данные пользователя</h4>
-    @using (Html.BeginForm("", "Register", FormMethod.Post))
-    {
-        <p> 
-            <label>Имя</label><br/>
-            <input type="text" name="userName"/>
-        </p>
-        <p>
-            <label>Пароль</label><br/>
-            <input type="password" name="password"/>
-        </p>
-        <p>
-            <label>Павторите пороль</label><br/>
-            <input type="password"/>
-        </p>
-        <p>
-            <input type="submit" value="Зарегистрироваться"/>
-        </p>
-    }
+    <h4>Регистрация</h4>
+    <form method="post">
+        <div>
+            <p>
+                <label asp-for="UserName">Имя пользователя</label><br/>
+                <input type="text" asp-for="UserName"/><br/>
+                <span asp-validation-for="UserName"/>
+            </p>
+            <p>
+                <label asp-for="Password">Пароль</label><br/>
+                <input type="password" asp-for="Password"/><br/>
+                <span asp-validation-for="Password"/>
+            </p>
+            <p>
+                <input type="submit" value="Зарегистрироваться"/>
+            </p>
+        </div>
+    </form>
 </div>
-</body>
-</html>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.10/jquery.validate.unobtrusive.min.js"></script>

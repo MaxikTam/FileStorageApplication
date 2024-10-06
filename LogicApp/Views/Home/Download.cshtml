@@ -1,0 +1,19 @@
+﻿@model List<string>
+@{
+    ViewBag.Title = "Загрузить файл";
+    Layout = "_Layout";
+}
+<div class="text-center">
+    <h2>Скачать файлы</h2>
+    <form asp-action="DownloadFile" method="get">
+        <select class="form-select-sm" name="fileName">
+            @foreach (var fileName in Model)
+            {
+                <option>@fileName</option>
+            }
+        </select>
+        <div class="mt-4">
+            <input class="btn btn-primary" type="submit" value="Скачать"/>
+        </div>
+    </form>
+</div>

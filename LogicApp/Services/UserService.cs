@@ -1,4 +1,5 @@
-﻿using LogicApp.DbAccess.Repositoryes;
+﻿using System.Security;
+using LogicApp.DbAccess.Repositoryes;
 using LogicApp.Infrastructure;
 using LogicApp.Models;
 
@@ -8,15 +9,18 @@ public class UserService
 {
     private readonly PasswordHasher _passwordHasher = new();
     private readonly UserRepository _userRepository;
-    private readonly JwtProvider _jwtProvider;
 
-    public UserService(JwtProvider jwtProvider, UserRepository userRepository)
+    public UserService(UserRepository userRepository)
     {
-        _jwtProvider = jwtProvider;
         _userRepository = userRepository;
     }
-    public async Task Register(string userName, string password)
+    public async Task<bool> Register(string userName, string password)
     {
+        if (! await _userRepository.IsUserNameUnique(userName))
+        {
+            return false;
+        }
+        
         var hashedPassword = _passwordHasher.Generate(password);
         var user = new User()
         {
@@ -25,9 +29,10 @@ public class UserService
         };
 
         await _userRepository.Add(user);
+        return true;
     }
 
-    public async Task<string> Login(string userName, string password)
+    public async Task<User> Login(string userName, string password)
     {
         var user = await _userRepository.GetByUserName(userName);
 
@@ -36,8 +41,7 @@ public class UserService
             throw new Exception("Failed to login!");
         }
 
-        var token = _jwtProvider.GenerateToken(user);
-        return token;
+        return user;
     }
     
     

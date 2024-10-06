@@ -5,6 +5,21 @@ namespace LogicApp.DbAccess.Repositoryes;
 
 public class UserRepository(FileStorageDbContext context)
 {
+    public async Task<bool> IsUserNameUnique(string name)
+    {
+        try
+        {
+            var userEntity = await context.Users
+                .AsNoTracking()
+                .FirstAsync(u => u.Name == name);
+        }
+        catch(InvalidOperationException ex)
+        {
+            return true;
+        }
+
+        return false;
+    }
     public async Task Add(User user)
     {
         var userEntity = new User()
