@@ -1,17 +1,30 @@
 ﻿
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Admin";
     Layout = "_Layout";
 }
 <!DOCTYPE html>
-
-<html>
-    <head>
-        <title>Admin</title>
-    </head>
-    <body>
-        <div>
-              
-        </div>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .btn-transparent {
+            background-color: rgba(0, 123, 255, 0.5);
+            font-size: 1.5rem;
+            padding: 40px 40px;
+        }
+    </style>
+</head>
+<body>
+<h1 class="text-center">С возвращением!</h1>
+<div class="d-flex justify-content-center mt-4">
+    <button class="btn btn-transparent mx-2" onclick="location.href='Admin/Filters'">Фильтры</button>
+    <button class="btn btn-transparent mx-2" onclick="location.href='Admin/Storage'">Хранилище</button>
+    <button class="btn btn-transparent mx-2" onclick="location.href='Admin/Archive'">Журнал действий</button>
+    <button class="btn btn-transparent mx-2" onclick="location.href='Admin/Statistic'">Статистика</button>
+</div>
+</body>
 </html>
