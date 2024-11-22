@@ -27,13 +27,21 @@ public class FileRepository(FileStorageDbContext context)
         return files.Select(f => f.Name).ToList();
     }
 
-    public async Task<FileFilterDb> GetFilter()
+    public IEnumerable<FileFilterDb> GetFilters()
     {
-        var filter = await context.FileFilters
-            .AsNoTracking()
-            .FirstAsync(x => x.FileFilterId == 1);
+        return context.FileFilters.Select(f => f).ToList();
+    }
 
-        return filter;
+    public async Task<bool> InsertFilter(FileFilterDb filter)
+    {
+        if (await context.FileFilters.AnyAsync(o => o.Type == filter.Type))
+        {
+            return false;
+        } 
+        
+        await context.FileFilters.AddAsync(filter);
+        await context.SaveChangesAsync();
+        return true;
     }
     
     

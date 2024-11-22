@@ -14,7 +14,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="wwwroot\Files\admin\" />
       <Folder Include="wwwroot\Files\maxim\" />
+      <Folder Include="wwwroot\Files\test\" />
     </ItemGroup>
 
 </Project>

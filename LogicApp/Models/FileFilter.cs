@@ -8,51 +8,46 @@ using Microsoft.JSInterop.Implementation;
 
 namespace LogicApp.Models;
 
-public class FileFilter
+public class FileFilter()
 {
-    private List<TypeFile> _typeFiles;
-    private long _size;
+    /// <summary>
+    /// По умолчанию, нельзя загружать файлы, размером более 20 Мб.
+    /// </summary>
+    private const double Default = 20;
 
-    public string TypeFile
+    public Dictionary<TypeFile, long> ExtensionSize { get; set; } = new();
+    
+    /// <summary>
+    /// Разрешённые расширения в строковом виде.
+    /// </summary>
+    public string Extensions
     {
         get
         {
             var result = new StringBuilder();
-            foreach (var type in _typeFiles)
+            foreach (var type in ExtensionSize.Keys)
             {
+                result.Append('.');
                 result.Append('.');
                 result.Append(type.ToString().ToLower());
                 result.Append(',');
                 result.Append(' ');
             }
 
-            return result.ToString().TrimEnd(',');
+            return result.ToString().TrimEnd(',');    
         }
-    }
-    
-    /// <summary>
-    /// File limit in Mb
-    /// </summary>
-    public double Size => (double) _size / (1024 * 1024);
-    
-    public FileFilter(FileFilterDb filterDb)
-    {
-        try
-        {
-            _typeFiles = JsonSerializer.Deserialize<List<TypeFile>>(filterDb.Type);
-            _size = filterDb.Size;
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
-        
     }
 
-    public FileFilter(List<int> typeFiles, int size)
+    /// <summary>
+    /// Ограничение размера файла в Mb
+    /// </summary>
+    public double GetExtensionSizeLimit(TypeFile typeFile)
     {
-        _typeFiles = typeFiles.Select( x => (TypeFile)x ).ToList();
-        _size = size * (1024 * 1024);
+        if (!ExtensionSize.TryGetValue(typeFile, out var size))
+        {
+            return Default;
+        }
+        return (double)ExtensionSize[typeFile] / (1024 * 1024);
     }
+    
 }
