@@ -8,7 +8,9 @@ public class FileRepository(FileStorageDbContext context)
     public async Task<bool> Add(StoredFile file)
     {
         if (await context.Files
-                .AnyAsync(o => o.Name == file.Name)) return false;
+                .AnyAsync(o => 
+                    (o.Name == file.Name &
+                    o.UserId == file.UserId))) return false;
 
         await context.Files.AddAsync(file);
         await context.SaveChangesAsync();
@@ -24,4 +26,15 @@ public class FileRepository(FileStorageDbContext context)
 
         return files.Select(f => f.Name).ToList();
     }
+
+    public async Task<FileFilterDb> GetFilter()
+    {
+        var filter = await context.FileFilters
+            .AsNoTracking()
+            .FirstAsync(x => x.FileFilterId == 1);
+
+        return filter;
+    }
+    
+    
 }

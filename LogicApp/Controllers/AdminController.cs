@@ -6,7 +6,7 @@ namespace LogicApp.Controllers;
 public class AdminController : Controller
 {
     [HttpGet]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public IActionResult Index()
     {
         return View();

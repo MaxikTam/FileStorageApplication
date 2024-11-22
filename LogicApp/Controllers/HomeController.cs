@@ -19,7 +19,7 @@ public class HomeController : Controller
         _fileService = fileService;
     }
     
-    public IActionResult Index()
+    public IActionResult Index() 
     {
         return View();
     }

@@ -27,7 +27,8 @@ public class FileService(
         {
             Name = uploadedFile.FileName, 
             Path = path,
-            UserId = user.Id
+            UserId = user.Id,
+            Size = uploadedFile.Length
         };
             
         return await fileRepository.Add(file);

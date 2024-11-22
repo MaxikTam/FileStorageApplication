@@ -29,10 +29,14 @@ public class LoginController : Controller
         try
         {
             var user = await _userService.Login(request.UserName, request.Password);
-            var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.Name) };
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.ToString())
+            };
             var claimsIdentity = new ClaimsIdentity(claims, "Cookies");
-
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+            await HttpContext.SignInAsync(claimsPrincipal);
         }
         catch (Exception ex)
         {
@@ -41,5 +45,4 @@ public class LoginController : Controller
 
         return Redirect("~/Home");
     }
-    
 }
